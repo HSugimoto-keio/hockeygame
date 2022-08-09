@@ -27,7 +27,9 @@ class Player:
         self.size = 100
         self.width = 10
         self.vely = 25
+        self.velx = 25
         self.color = color
+        self.pid = pid
         if pid == 0:
             self.rectleft = 0
             self.posx = self.posxright()
@@ -72,13 +74,35 @@ class Player:
         下端に達しない限り,対応キーに応じてラケットを下に移動
         """
         self.posy = min(self.posy + self.vely, WINDOW_HEIGHT)
+    
+    def left(self):
+        if self.pid == 0:
+            self.rectleft = max(self.rectleft - self.velx, 0)
+        elif self.pid == 1:
+            self.rectleft = max(self.rectleft - self.velx, WINDOW_WIDTH//2)
+    
+    def right(self):
+        if self.pid == 0:
+            self.rectleft = min(self.rectleft + self.velx, WINDOW_WIDTH//2)
+        elif self.pid == 1:
+            self.rectleft = min(self.rectleft + self.velx, WINDOW_WIDTH)
 
     def draw(self, canvas):
         """
         ラケットの描画
         """
+        
         canvas.create_rectangle(
             self.rectleft, self.posymin(),
             self.posxright(), self.posymax(),
             fill=self.color
         )
+        '''
+        canvas.create_oval(
+            self.left(), self.up(),
+            self.right(), self.down(),
+            fill=self.color
+            )
+        
+        '''
+        

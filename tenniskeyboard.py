@@ -24,6 +24,10 @@ class TennisKeyBoard(KeyBoard):
         if type(player1) is Player:
             self.setoperation("w", player1.up)
             self.setoperation("s", player1.down)
+            self.setoperation("a", player1.left)
+            self.setoperation("d", player1.right)
         if type(player2) is Player:
             self.setoperation("i", player2.up)
             self.setoperation("k", player2.down)
+            self.setoperation("j", player2.left)
+            self.setoperation("l", player2.right)
