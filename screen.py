@@ -140,7 +140,7 @@ class Screen:
         )
         self.canvas.create_text(
             WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 - 100,
-            text="AIC Presents",
+            text="Urayama Presents",
             anchor="center", fill="red", font=("roman", 30, "italic")
         )
         self.canvas.create_text(
