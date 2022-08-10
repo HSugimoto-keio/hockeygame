@@ -28,7 +28,8 @@ class AirhockeyGame(Game):
         キーボード操作はkeyboardに専任
         ゲーム,マッチの初期化を行い,ゲームを実行
         """
-        super().__init__()
+        self.gamename = "AirHockey"
+        super().__init__(self.gamename)
         self.keyboard = AirHockeyKeyBoard()
         self.judge = Judge()
         self.ball = Ball()

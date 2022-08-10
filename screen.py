@@ -14,12 +14,13 @@ class Screen:
     stateの画面→state名そのまま
     それ以外→draw_func
     """
-    def __init__(self):
+    def __init__(self,gamename):
         """
         window:画面全体の管理
         canvas:中のメインの白画面を管理
         mtime:画面更新間隔(ms)
         """
+        self.gamename = gamename
         self.window = Tk()
         self.canvas = Canvas(
             self.window,
@@ -135,7 +136,7 @@ class Screen:
         self.window.title("Let's start! Press space!")
         self.canvas.create_text(
             WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2,
-            text="Tennis",
+            text=self.gamename,
             anchor="center", fill="blue", font=("roman", 40, "bold")
         )
         self.canvas.create_text(
