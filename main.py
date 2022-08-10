@@ -2,14 +2,14 @@
 mainFile
 使用しているGameをgameに代入してプレイ
 """
-from tennisgame import TennisGame
+from Airhockeygame import AirhockeyGame
 
 
 def main():
     """
     game起動(gameに代入しているgameがスタートする)
     """
-    game = TennisGame()
+    game = AirhockeyGame()
     game.state_boot()
     game.screen.window.mainloop()
 

@@ -6,7 +6,7 @@ from keyboard import KeyBoard
 from player import Player
 
 
-class TennisKeyBoard(KeyBoard):
+class AirHockeyKeyBoard(KeyBoard):
     """
     キーボード操作を管理
     """

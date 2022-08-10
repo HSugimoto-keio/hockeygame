@@ -8,7 +8,7 @@ from const import GOAL_HEIGHT, GOAL_WIDTH, WINDOW_HEIGHT, WINDOW_WIDTH
 class Ball:
     """
     Ballクラス
-    テニスボール
+    今回はホッケー
     ゲームの判定に関わる動作
     left:ボールの左端を表現
     right:ボールの右端を表現

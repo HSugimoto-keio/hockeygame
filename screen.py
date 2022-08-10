@@ -48,7 +48,7 @@ class Screen:
 
     def draw_court(self):
         """
-        試合中の画面背景=テニスコートを描画
+        試合中の画面背景=ホッケーボードを描画
         """
         self.canvas.delete('all')
         self.canvas.create_rectangle(

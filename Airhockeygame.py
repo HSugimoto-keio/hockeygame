@@ -8,11 +8,11 @@ from game import Game
 from ball import Ball
 from player import Player
 from cpuplayer import CPUPlayer
-from tenniskeyboard import TennisKeyBoard
+from airhockeykeyboard import AirHockeyKeyBoard
 from judge import Judge
 
 
-class TennisGame(Game):
+class AirhockeyGame(Game):
     """
     TennisGameクラス
     ゲーム本体でありマネージャ
@@ -29,7 +29,7 @@ class TennisGame(Game):
         ゲーム,マッチの初期化を行い,ゲームを実行
         """
         super().__init__()
-        self.keyboard = TennisKeyBoard()
+        self.keyboard = AirHockeyKeyBoard()
         self.judge = Judge()
         self.ball = Ball()
         # pygame.mixer.init()
