@@ -30,12 +30,11 @@ class Player:
         self.velx = 25
         self.color = color
         self.pid = pid
+        self.posx = None
         if pid == 0:
-            self.rectleft = 0
-            self.posx = self.posxright()
-        if pid == 1:
-            self.rectleft = WINDOW_WIDTH - self.width
-            self.posx = self.rectleft
+            self.posx = 0 + self.width
+        elif pid == 1:
+            self.posx = WINDOW_WIDTH - self.width
         self.player_init()
 
     def player_init(self):
@@ -57,11 +56,16 @@ class Player:
         """
         return self.posy + self.size // 2
 
-    def posxright(self):
+    def posxopposite(self):
         """
-        ラケットの右端の位置
+        ラケットのposxの反対位置
         """
-        return self.rectleft + self.width
+        op = None
+        if self.pid == 0:
+            op = self.posx - self.width
+        elif self.pid == 1:
+            op = self.posx + self.width
+        return op
 
     def up(self):
         """
@@ -77,32 +81,23 @@ class Player:
     
     def left(self):
         if self.pid == 0:
-            self.rectleft = max(self.rectleft - self.velx, 0)
+            self.posx = max(self.posx - self.velx, self.width)
         elif self.pid == 1:
-            self.rectleft = max(self.rectleft - self.velx, WINDOW_WIDTH//2)
+            self.posx = max(self.posx - self.velx, WINDOW_WIDTH//2)
     
     def right(self):
         if self.pid == 0:
-            self.rectleft = min(self.rectleft + self.velx, WINDOW_WIDTH//2)
+            self.posx = min(self.posx + self.velx, WINDOW_WIDTH//2)
         elif self.pid == 1:
-            self.rectleft = min(self.rectleft + self.velx, WINDOW_WIDTH)
+            self.posx = min(self.posx + self.velx, WINDOW_WIDTH - self.width)
 
     def draw(self, canvas):
         """
         ラケットの描画
         """
-        
         canvas.create_rectangle(
-            self.rectleft, self.posymin(),
-            self.posxright(), self.posymax(),
+            self.posx, self.posymin(),
+            self.posxopposite(), self.posymax(),
             fill=self.color
         )
-        '''
-        canvas.create_oval(
-            self.left(), self.up(),
-            self.right(), self.down(),
-            fill=self.color
-            )
-        
-        '''
         
