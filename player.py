@@ -84,6 +84,7 @@ class Player:
     def up(self):
         """
         上端に達しない限り,対応キーに応じてラケットを上に移動
+        またホッケートークンの移動速度を決めるパラーメタもここで決定
         """
         self.vvy = -5
         if self.vvx > 0:
@@ -95,6 +96,7 @@ class Player:
     def down(self):
         """
         下端に達しない限り,対応キーに応じてラケットを下に移動
+        またホッケートークンの移動速度を決めるパラーメタもここで決定
         """
         self.vvy = 5
         if self.vvx > 0:
@@ -104,6 +106,10 @@ class Player:
         self.posy = min(self.posy + self.vely, WINDOW_HEIGHT)
     
     def left(self):
+        """
+        プレイヤーそれぞれの左端に達しない限り,対応キーに応じてラケットを左に移動
+        またホッケートークンの移動速度を決めるパラーメタもここで決定
+        """
         self.vvx = 5
         if self.vvy > 0:
             self.vvy = max(self.vvy-1,0)
@@ -116,6 +122,10 @@ class Player:
             self.posx = max(self.posx - self.velx, WINDOW_WIDTH//2)
     
     def right(self):
+        """
+        プレイヤーそれぞれの左端に達しない限り,対応キーに応じてラケットを左に移動
+        またホッケートークンの移動速度を決めるパラーメタもここで決定
+        """
         self.vvx = -5
         if self.vvy > 0:
             self.vvy = max(self.vvy-1,0)
@@ -128,6 +138,10 @@ class Player:
             self.posx = min(self.posx + self.velx, WINDOW_WIDTH - self.width)
     
     def circlein(self, x, y):
+        '''
+        x,yの座標がプレイヤーのサークル内にあるかどうかを判定
+        主にballの当たり判定に使用
+        '''
         r = self.size // 2
         return (self.posx-x)**2 + (self.posy-y)**2 < r*r
 
@@ -135,13 +149,6 @@ class Player:
         """
         ラケットの描画
         """
-        '''
-        canvas.create_rectangle(
-            self.posx, self.posymin(),
-            self.posxopposite(), self.posymax(),
-            fill=self.color
-        )
-        '''
         canvas.create_oval(
             self.posxmin(), self.posymin(),
             self.posxmax(), self.posymax(),

@@ -38,16 +38,7 @@ class Ball:
         size:ボールのサイズ
         """
         self.posx = WINDOW_WIDTH//2
-        '''
-        if random.randint(0, 1) == 0:
-            #self.posx = 0
-            self.velx = 15
-        else:
-            #self.posx = WINDOW_WIDTH - 1
-            self.velx = -15
-        '''
         self.posy = 250
-        #self.vely = -15
         self.velx = 0
         self.vely = 0
 
@@ -103,23 +94,6 @@ class Ball:
                 (self.nextposy() > WINDOW_HEIGHT//2 + GOAL_HEIGHT//2) ):
             self.velx *= -1
         
-        '''
-        if (self.nextposx() >= player2.posx and\
-            self.nextposx() <= player2.posxopposite() ) and\
-            (player2.posymin() <= self.nextposy() and\
-                self.nextposy() <= player2.posymax()):
-            self.velx *= -1
-            if random.randint(0, 1) == 0:
-                self.vely *= -1
-
-        if (self.nextposx() <= player1.posx and\
-            self.nextposx() >= player1.posxopposite() ) and\
-            (player1.posymin() <= self.nextposy() and\
-                self.nextposy() <= player1.posymax()):
-            self.velx *= -1
-            if random.randint(0, 1) == 0:
-                self.vely *= -1
-        '''
         eff = 3.3
         if player1.circlein(self.nextposx(), self.nextposy()):
             self.velx += eff*player1.vvx//1
