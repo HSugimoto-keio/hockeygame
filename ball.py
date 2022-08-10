@@ -1,7 +1,6 @@
 """
 Ballクラスを表現
 """
-import random
 from const import GOAL_HEIGHT, GOAL_WIDTH, WINDOW_HEIGHT, WINDOW_WIDTH
 
 
