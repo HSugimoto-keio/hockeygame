@@ -30,11 +30,6 @@ class Player:
         self.velx = 25
         self.color = color
         self.pid = pid
-        self.posx = None
-        if pid == 0:
-            self.posx = 0 + self.width
-        elif pid == 1:
-            self.posx = WINDOW_WIDTH - self.width
         self.player_init()
 
     def player_init(self):
@@ -43,6 +38,13 @@ class Player:
         """
         self.point = 0
         self.posy = WINDOW_HEIGHT // 2
+        self.posx = None
+        if self.pid == 0:
+            self.posx = 0 + self.width
+        elif self.pid == 1:
+            self.posx = WINDOW_WIDTH - self.width
+        self.vvy = 0
+        self.vvx = 0
 
     def posymin(self):
         """
@@ -55,6 +57,18 @@ class Player:
         ラケットの下端の位置
         """
         return self.posy + self.size // 2
+    
+    def posxmin(self):
+        """
+        ラケットの左端の位置
+        """
+        return self.posx - self.size // 2
+
+    def posxmax(self):
+        """
+        ラケットの右端の位置
+        """
+        return self.posx + self.size // 2
 
     def posxopposite(self):
         """
@@ -71,33 +85,64 @@ class Player:
         """
         上端に達しない限り,対応キーに応じてラケットを上に移動
         """
+        self.vvy = -5
+        if self.vvx > 0:
+            self.vvx = max(self.vvx-1,0)
+        elif self.vvx < 0:
+            self.vvx = min(self.vvx+1,0)
         self.posy = max(self.posy - self.vely, 0)
 
     def down(self):
         """
         下端に達しない限り,対応キーに応じてラケットを下に移動
         """
+        self.vvy = 5
+        if self.vvx > 0:
+            self.vvx = max(self.vvx-1,0)
+        elif self.vvx < 0:
+            self.vvx = min(self.vvx+1,0)
         self.posy = min(self.posy + self.vely, WINDOW_HEIGHT)
     
     def left(self):
+        self.vvx = 5
+        if self.vvy > 0:
+            self.vvy = max(self.vvy-1,0)
+        elif self.vvy < 0:
+            self.vvy = min(self.vvy+1,0)
+        
         if self.pid == 0:
             self.posx = max(self.posx - self.velx, self.width)
         elif self.pid == 1:
             self.posx = max(self.posx - self.velx, WINDOW_WIDTH//2)
     
     def right(self):
+        self.vvx = -5
+        if self.vvy > 0:
+            self.vvy = max(self.vvy-1,0)
+        elif self.vvy < 0:
+            self.vvy = min(self.vvy+1,0)
+
         if self.pid == 0:
             self.posx = min(self.posx + self.velx, WINDOW_WIDTH//2)
         elif self.pid == 1:
             self.posx = min(self.posx + self.velx, WINDOW_WIDTH - self.width)
+    
+    def circlein(self, x, y):
+        r = self.size // 2
+        return (self.posx-x)**2 + (self.posy-y)**2 < r*r
 
     def draw(self, canvas):
         """
         ラケットの描画
         """
+        '''
         canvas.create_rectangle(
             self.posx, self.posymin(),
             self.posxopposite(), self.posymax(),
             fill=self.color
         )
-        
+        '''
+        canvas.create_oval(
+            self.posxmin(), self.posymin(),
+            self.posxmax(), self.posymax(),
+            fill=self.color)

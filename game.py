@@ -11,7 +11,7 @@ class Game:
     Screen動作と状態遷移の基本動作を定義
     """
 
-    def __init__(self,gamename = "Game",presenter = "God"):
+    def __init__(self, gamename = "Game", presenter = "God"):
         """
         初期化
         """

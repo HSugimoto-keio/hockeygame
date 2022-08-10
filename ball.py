@@ -38,14 +38,18 @@ class Ball:
         size:ボールのサイズ
         """
         self.posx = WINDOW_WIDTH//2
+        '''
         if random.randint(0, 1) == 0:
             #self.posx = 0
             self.velx = 15
         else:
             #self.posx = WINDOW_WIDTH - 1
             self.velx = -15
+        '''
         self.posy = 250
-        self.vely = -15
+        #self.vely = -15
+        self.velx = 0
+        self.vely = 0
 
     def left(self):
         """
@@ -98,7 +102,8 @@ class Ball:
             ((self.nextposy() < WINDOW_HEIGHT//2 - GOAL_HEIGHT//2) or\
                 (self.nextposy() > WINDOW_HEIGHT//2 + GOAL_HEIGHT//2) ):
             self.velx *= -1
-
+        
+        '''
         if (self.nextposx() >= player2.posx and\
             self.nextposx() <= player2.posxopposite() ) and\
             (player2.posymin() <= self.nextposy() and\
@@ -114,6 +119,15 @@ class Ball:
             self.velx *= -1
             if random.randint(0, 1) == 0:
                 self.vely *= -1
+        '''
+        eff = 3.3
+        if player1.circlein(self.nextposx(), self.nextposy()):
+            self.velx += eff*player1.vvx//1
+            self.vely += eff*player1.vvy//1
+        
+        if player2.circlein(self.nextposx(), self.nextposy()):
+            self.velx += eff*player2.vvx//1
+            self.vely += eff*player2.vvy//1
 
         if self.nextposx() < 0:
             player2.point += 1
