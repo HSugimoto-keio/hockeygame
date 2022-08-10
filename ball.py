@@ -37,11 +37,12 @@ class Ball:
         posx,posy:位置
         size:ボールのサイズ
         """
+        self.posx = WINDOW_WIDTH//2
         if random.randint(0, 1) == 0:
-            self.posx = 0
+            #self.posx = 0
             self.velx = 15
         else:
-            self.posx = WINDOW_WIDTH - 1
+            #self.posx = WINDOW_WIDTH - 1
             self.velx = -15
         self.posy = 250
         self.vely = -15
@@ -98,14 +99,16 @@ class Ball:
         if self.nextposy() < 0 or self.nextposy() > WINDOW_HEIGHT:
             self.vely *= -1
 
-        if self.nextposx() > WINDOW_WIDTH and\
+        if (self.nextposx() >= player2.posx and\
+            self.nextposx() <= player2.posxopposite() ) and\
             (player2.posymin() <= self.nextposy() and\
                 self.nextposy() <= player2.posymax()):
             self.velx *= -1
             if random.randint(0, 1) == 0:
                 self.vely *= -1
 
-        if self.nextposx() < 0 and\
+        if (self.nextposx() <= player1.posx and\
+            self.nextposx() >= player1.posxopposite() ) and\
             (player1.posymin() <= self.nextposy() and\
                 self.nextposy() <= player1.posymax()):
             self.velx *= -1

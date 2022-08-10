@@ -24,8 +24,8 @@ class Player:
         rectleft:左端
         rectright:右端
         """
-        self.size = 100
-        self.width = 10
+        self.size = 30
+        self.width = 30
         self.vely = 25
         self.velx = 25
         self.color = color
