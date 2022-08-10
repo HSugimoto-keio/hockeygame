@@ -2,7 +2,7 @@
 mainFile
 使用しているGameをgameに代入してプレイ
 """
-from Airhockeygame import AirhockeyGame
+from airhockeygame import AirhockeyGame
 
 
 def main():
