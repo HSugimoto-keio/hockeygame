@@ -29,7 +29,8 @@ class AirhockeyGame(Game):
         ゲーム,マッチの初期化を行い,ゲームを実行
         """
         self.gamename = "AirHockey"
-        super().__init__(self.gamename)
+        self.presenter = "Urayama"
+        super().__init__(self.gamename, self.presenter)
         self.keyboard = AirHockeyKeyBoard()
         self.judge = Judge()
         self.ball = Ball()

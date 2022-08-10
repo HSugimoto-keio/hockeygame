@@ -11,12 +11,13 @@ class Game:
     Screen動作と状態遷移の基本動作を定義
     """
 
-    def __init__(self,gamename = "Game"):
+    def __init__(self,gamename = "Game",presenter = "God"):
         """
         初期化
         """
         self.gamename = gamename
-        self.screen = Screen(self.gamename)
+        self.presenter = presenter
+        self.screen = Screen(self.gamename, self.presenter)
         self.screen.canvas.pack()
 
     def nextstate(self, statedict, nowstate):

@@ -14,13 +14,14 @@ class Screen:
     stateの画面→state名そのまま
     それ以外→draw_func
     """
-    def __init__(self,gamename):
+    def __init__(self, gamename, presenter):
         """
         window:画面全体の管理
         canvas:中のメインの白画面を管理
         mtime:画面更新間隔(ms)
         """
         self.gamename = gamename
+        self.presenter = presenter
         self.window = Tk()
         self.canvas = Canvas(
             self.window,
@@ -56,32 +57,9 @@ class Screen:
             0, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
             fill="white", width=0
         )
-        left = WINDOW_WIDTH // 2 - 65
-        right = WINDOW_WIDTH // 2 + 65
-        width = 10
+
         gurard_color = "blue"
-        '''
-        self.canvas.create_rectangle(
-            0, WINDOW_HEIGHT // 2 - 5, left, WINDOW_HEIGHT // 2 + 5,
-            fill="white", width=0
-        )
-        self.canvas.create_rectangle(
-            right, WINDOW_HEIGHT // 2 - 5, WINDOW_WIDTH, WINDOW_HEIGHT // 2 + 5,
-            fill="white", width=0
-        )
-        self.canvas.create_rectangle(
-            WINDOW_WIDTH // 2 - 5, 0, WINDOW_WIDTH // 2 + 5, WINDOW_HEIGHT,
-            fill="white", width=0
-        )
-        self.canvas.create_rectangle(
-            left, 0, left + width, WINDOW_HEIGHT,
-            fill="white", width=0
-        )
-        self.canvas.create_rectangle(
-            right - width, 0, right, WINDOW_HEIGHT,
-            fill="white", width=0
-        )
-        '''
+        
         self.canvas.create_rectangle(
             WINDOW_WIDTH // 2 - 5, 0, WINDOW_WIDTH // 2 + 5, WINDOW_HEIGHT,
             fill="pink", width=0
@@ -141,7 +119,7 @@ class Screen:
         )
         self.canvas.create_text(
             WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 - 100,
-            text="Urayama Presents",
+            text=self.presenter+" Presents",
             anchor="center", fill="red", font=("roman", 30, "italic")
         )
         self.canvas.create_text(
@@ -187,12 +165,12 @@ class Screen:
         self.canvas.create_text(
             WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 100,
             text="New Game? -> Press space",
-            anchor="center", fill="blue", font=("roman", 15)
+            anchor="center", fill="green", font=("roman", 15)
         )
         self.canvas.create_text(
             WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 200,
             text="Return to Start screen? -> Press Return",
-            anchor="center", fill="blue", font=("roman", 15)
+            anchor="center", fill="green", font=("roman", 15)
         )
         if gamemanager.judge.is_player_winner(gamemanager.player1, gamemanager.player2):
             self.window.title("Player1 Win!!: " + self.draw_display_point(gamemanager))
