@@ -110,7 +110,7 @@ class Player:
         プレイヤーそれぞれの左端に達しない限り,対応キーに応じてラケットを左に移動
         またホッケートークンの移動速度を決めるパラーメタもここで決定
         """
-        self.vvx = 5
+        self.vvx = -5
         if self.vvy > 0:
             self.vvy = max(self.vvy-1,0)
         elif self.vvy < 0:
@@ -126,7 +126,7 @@ class Player:
         プレイヤーそれぞれの左端に達しない限り,対応キーに応じてラケットを左に移動
         またホッケートークンの移動速度を決めるパラーメタもここで決定
         """
-        self.vvx = -5
+        self.vvx = 5
         if self.vvy > 0:
             self.vvy = max(self.vvy-1,0)
         elif self.vvy < 0:

@@ -28,3 +28,9 @@ class CPUPlayer(Player):
             self.up()
         elif rand == 1:
             self.down()
+        
+        rand = random.randint(-1, 1)
+        if rand == -1:
+            self.left()
+        elif rand == 1:
+            self.right()
