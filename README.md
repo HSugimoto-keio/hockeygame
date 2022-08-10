@@ -49,8 +49,8 @@ main.py以外のこれらは継承前提で作られており,使用する際は
 
 ゲーム基幹部分
 ```html:File
-    tennisgame.py
-    tenniskeyboard.py
+    airhockeygame.py
+    airhockeykeyboard.py
     screen.py
     const.py
 ```
