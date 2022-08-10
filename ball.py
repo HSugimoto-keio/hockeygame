@@ -2,7 +2,7 @@
 Ballクラスを表現
 """
 import random
-from const import WINDOW_HEIGHT, WINDOW_WIDTH
+from const import GOAL_HEIGHT, GOAL_WIDTH, WINDOW_HEIGHT, WINDOW_WIDTH
 
 
 class Ball:
@@ -85,12 +85,7 @@ class Ball:
 
     def move_ball(self, gamemaster, player1, player2):
         """
-        引数:gamemaster = main,player1,player2
-        matchが終われば速さ=0
-        ボールが画面上端,下端に当たれば同じ速度で跳ね返る
-        ボールがラケットに当たれば同じ速度で跳ね返るが,ランダムで上下が逆転
-        ラケットにあたっておらず右端(左端)に行けばmatchが終わり,プレイヤー1(プレイヤー2)の点数を1追加
-        以上の特殊なことがなければ次の位置と予測できる位置にボールを移動
+        ballの動きを決める関数
         """
         if gamemaster.judge.is_matchover:
             self.velx = 0
@@ -98,6 +93,11 @@ class Ball:
 
         if self.nextposy() < 0 or self.nextposy() > WINDOW_HEIGHT:
             self.vely *= -1
+        
+        if (self.nextposx() < GOAL_WIDTH or self.nextposx() > WINDOW_WIDTH - GOAL_WIDTH) and\
+            ((self.nextposy() < WINDOW_HEIGHT//2 - GOAL_HEIGHT//2) or\
+                (self.nextposy() > WINDOW_HEIGHT//2 + GOAL_HEIGHT//2) ):
+            self.velx *= -1
 
         if (self.nextposx() >= player2.posx and\
             self.nextposx() <= player2.posxopposite() ) and\

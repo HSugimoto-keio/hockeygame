@@ -4,7 +4,7 @@
 
 
 from tkinter import Tk, Canvas
-from const import WINDOW_WIDTH, WINDOW_HEIGHT
+from const import GOAL_HEIGHT, GOAL_WIDTH, WINDOW_WIDTH, WINDOW_HEIGHT
 
 
 class Screen:
@@ -53,11 +53,13 @@ class Screen:
         self.canvas.delete('all')
         self.canvas.create_rectangle(
             0, 0, WINDOW_WIDTH, WINDOW_HEIGHT,
-            fill="green2", width=0
+            fill="white", width=0
         )
         left = WINDOW_WIDTH // 2 - 65
         right = WINDOW_WIDTH // 2 + 65
         width = 10
+        gurard_color = "blue"
+        '''
         self.canvas.create_rectangle(
             0, WINDOW_HEIGHT // 2 - 5, left, WINDOW_HEIGHT // 2 + 5,
             fill="white", width=0
@@ -77,6 +79,31 @@ class Screen:
         self.canvas.create_rectangle(
             right - width, 0, right, WINDOW_HEIGHT,
             fill="white", width=0
+        )
+        '''
+        self.canvas.create_rectangle(
+            WINDOW_WIDTH // 2 - 5, 0, WINDOW_WIDTH // 2 + 5, WINDOW_HEIGHT,
+            fill="pink", width=0
+        )
+
+        self.canvas.create_rectangle(
+            0, 0, 0 + GOAL_WIDTH, WINDOW_HEIGHT//2 - GOAL_HEIGHT//2,
+            fill=gurard_color, width=0
+        )
+
+        self.canvas.create_rectangle(
+            0, WINDOW_HEIGHT//2 + GOAL_HEIGHT//2, 0 + GOAL_WIDTH, WINDOW_HEIGHT,
+            fill=gurard_color, width=0
+        )
+
+        self.canvas.create_rectangle(
+            WINDOW_WIDTH - GOAL_WIDTH, 0, WINDOW_WIDTH, WINDOW_HEIGHT//2 - GOAL_HEIGHT//2,
+            fill=gurard_color, width=0
+        )
+
+        self.canvas.create_rectangle(
+            WINDOW_WIDTH - GOAL_WIDTH, WINDOW_HEIGHT//2 + GOAL_HEIGHT//2, WINDOW_WIDTH, WINDOW_HEIGHT,
+            fill=gurard_color, width=0
         )
 
     def draw_gameitem(self, gamemanager):
