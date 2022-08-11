@@ -7,13 +7,16 @@ class KeyBoard:
     """
     キーボード操作を管理
     """
-    def __init__(self):
+    def __init__(self, screen):
         """
         keyboard管理を初期化
         主に辞書の作成
         """
         self.pressed = {}
         self.operationset = {}
+        screen.window.bind("<KeyPress>", self.key_pressed)
+        screen.window.bind("<KeyRelease>", self.key_released)
+        
 
     def key_pressed(self, event):
         """

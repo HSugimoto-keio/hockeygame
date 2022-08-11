@@ -31,15 +31,13 @@ class AirhockeyGame(Game):
         self.gamename = "AirHockey"
         self.presenter = "Urayama"
         super().__init__(self.gamename, self.presenter)
-        self.keyboard = AirHockeyKeyBoard()
+        self.controller = AirHockeyKeyBoard(self.screen)
         self.judge = Judge()
         self.ball = Ball()
         # pygame.mixer.init()
         # pygame.mixer.music.load("./wakakichi.wav")
         self.player1 = Player(0, "red")
         self.player2 = Player(1, "cyan")  # Playerなら操作,CPUならランダム
-        self.screen.window.bind("<KeyPress>", self.keyboard.key_pressed)
-        self.screen.window.bind("<KeyRelease>", self.keyboard.key_released)
         self.nextgame = False
         self.nextmatch = False
         self.player2selected = False
@@ -51,7 +49,7 @@ class AirhockeyGame(Game):
         """
         self.proc_boot()
         self.screen.boot()
-        chstate = {self.keyboard.is_pressed("space"): self.state_select}
+        chstate = {self.controller.select(): self.state_select}
         self.nextstate(chstate, self.state_boot)
 
     def state_select(self):
@@ -74,7 +72,7 @@ class AirhockeyGame(Game):
         self.proc_game()
         self.screen.game(self)
         chstate = {
-            self.keyboard.is_pressed("Return"): self.state_boot,
+            self.controller.boot(): self.state_boot,
             self.judge.is_gameover: self.state_gameresult,
             (not self.judge.is_gameover) and self.judge.is_matchover: self.state_matchresult
         }
@@ -89,7 +87,7 @@ class AirhockeyGame(Game):
         self.screen.gameresult(self)
         chstate = {
             self.nextgame: self.state_game,
-            self.keyboard.is_pressed("Return"): self.state_boot
+            self.controller.boot(): self.state_boot
         }
         self.nextstate(chstate, self.state_gameresult)
 
@@ -102,7 +100,7 @@ class AirhockeyGame(Game):
         self.screen.matchresult(self)
         chstate = {
             self.nextmatch: self.state_game,
-            self.keyboard.is_pressed("Return"): self.state_boot
+            self.controller.boot(): self.state_boot
         }
         self.nextstate(chstate, self.state_matchresult)
 
@@ -115,7 +113,7 @@ class AirhockeyGame(Game):
         self.judge.gamereset()
         self.player1.player_init()
         self.player2.player_init()
-        self.keyboard.setplayer(self.player1, self.player2)
+        self.controller.setplayer(self.player1, self.player2)
         self.screen.draw_screen()
         self.player1.draw(self.screen.canvas)
         self.player2.draw(self.screen.canvas)
@@ -141,11 +139,11 @@ class AirhockeyGame(Game):
         select処理
         """
         self.player2selected = False
-        if self.keyboard.is_pressed("1"):
+        if self.controller.vs_CPU():
             self.player2 = CPUPlayer(1, "violet")
             self.player2selected = True
             self.subproc_gameinit()
-        elif self.keyboard.is_pressed("2"):
+        elif self.controller.vs_2P():
             self.player2 = Player(1, "cyan")
             self.player2selected = True
             self.subproc_gameinit()
@@ -154,7 +152,7 @@ class AirhockeyGame(Game):
         """
         game処理
         """
-        self.keyboard.movekey()
+        self.controller.movekey()
         if type(self.player1) is CPUPlayer:
             self.player1.move()
         if type(self.player2) is CPUPlayer:
@@ -162,7 +160,7 @@ class AirhockeyGame(Game):
         self.ball.move_ball(self, self.player1, self.player2)
         self.judge.check_gameover(self.player1, self.player2)
 
-        if self.keyboard.is_pressed("space"):
+        if self.controller.resetmatch():
             self.subproc_matchinit()
 
     def proc_gameresult(self):
@@ -171,7 +169,7 @@ class AirhockeyGame(Game):
         """
         self.nextgame = False
         # pygame.mixer.music.stop()
-        if self.keyboard.is_pressed("space"):
+        if self.controller.nextgame():
             self.subproc_gameinit()
             self.nextgame = True
 
@@ -180,6 +178,6 @@ class AirhockeyGame(Game):
         matchresult処理
         """
         self.nextmatch = False
-        if self.keyboard.is_pressed("space"):
+        if self.controller.nextmatch():
             self.subproc_matchinit()
             self.nextmatch = True
