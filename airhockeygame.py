@@ -3,7 +3,6 @@ gameのメイン
 python3 main.pyでGUIが起動
 音ならすにはpip install pygame が必要
 """
-import imp
 from game import Game
 # import pygame.mixer
 from ball import Ball
