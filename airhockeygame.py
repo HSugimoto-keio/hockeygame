@@ -3,6 +3,7 @@ gameのメイン
 python3 main.pyでGUIが起動
 音ならすにはpip install pygame が必要
 """
+import imp
 from game import Game
 # import pygame.mixer
 from ball import Ball
@@ -10,7 +11,7 @@ from player import Player
 from cpuplayer import CPUPlayer
 from airhockeykeyboard import AirHockeyKeyBoard
 from judge import Judge
-
+from airhockeyjoyconcontroller import AirHockeyJoyConController
 
 class AirhockeyGame(Game):
     """
@@ -31,7 +32,8 @@ class AirhockeyGame(Game):
         self.gamename = "AirHockey"
         self.presenter = "Urayama"
         super().__init__(self.gamename, self.presenter)
-        self.controller = AirHockeyKeyBoard(self.screen)
+        #self.controller = AirHockeyKeyBoard(self.screen)
+        self.controller = AirHockeyJoyConController()
         self.judge = Judge()
         self.ball = Ball()
         # pygame.mixer.init()
