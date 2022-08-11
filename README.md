@@ -62,3 +62,14 @@ main.py以外のこれらは継承前提で作られており,使用する際は
     cpuplayer.py
     judge.py
 ```
+
+## 4.pyjoyconについて
+詳細はhttps://github.com/tocoteron/joycon-python を参照
+使用するには
+'''html:File
+pip install joycon-python hidapi pyglm
+'''
+の実行が必要
+
+Linuxの場合はhttps://www.reddit.com/r/Stadia/comments/egcvpq/comment/fc5s7qm/
+を参考にいじる必要あるかも。(udevについては各自で調べてください)
