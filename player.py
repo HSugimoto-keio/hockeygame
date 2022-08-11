@@ -28,6 +28,7 @@ class Player:
         self.width = 30
         self.vely = 25
         self.velx = 25
+        self.accmax = 50
         self.color = color
         self.pid = pid
         self.player_init()
@@ -43,8 +44,8 @@ class Player:
             self.posx = 0 + self.width
         elif self.pid == 1:
             self.posx = WINDOW_WIDTH - self.width
-        self.vvy = 0
-        self.vvx = 0
+        self.accly = 0
+        self.acclx = 0
 
     def posymin(self):
         """
@@ -86,11 +87,7 @@ class Player:
         上端に達しない限り,対応キーに応じてラケットを上に移動
         またホッケートークンの移動速度を決めるパラーメタもここで決定
         """
-        self.vvy = -5
-        if self.vvx > 0:
-            self.vvx = max(self.vvx-1,0)
-        elif self.vvx < 0:
-            self.vvx = min(self.vvx+1,0)
+        self.accly = -self.accmax
         self.posy = max(self.posy - self.vely, 0)
 
     def down(self):
@@ -98,11 +95,7 @@ class Player:
         下端に達しない限り,対応キーに応じてラケットを下に移動
         またホッケートークンの移動速度を決めるパラーメタもここで決定
         """
-        self.vvy = 5
-        if self.vvx > 0:
-            self.vvx = max(self.vvx-1,0)
-        elif self.vvx < 0:
-            self.vvx = min(self.vvx+1,0)
+        self.accly = self.accmax
         self.posy = min(self.posy + self.vely, WINDOW_HEIGHT)
     
     def left(self):
@@ -110,11 +103,7 @@ class Player:
         プレイヤーそれぞれの左端に達しない限り,対応キーに応じてラケットを左に移動
         またホッケートークンの移動速度を決めるパラーメタもここで決定
         """
-        self.vvx = -5
-        if self.vvy > 0:
-            self.vvy = max(self.vvy-1,0)
-        elif self.vvy < 0:
-            self.vvy = min(self.vvy+1,0)
+        self.acclx = -self.accmax
         
         if self.pid == 0:
             self.posx = max(self.posx - self.velx, self.width)
@@ -126,16 +115,22 @@ class Player:
         プレイヤーそれぞれの左端に達しない限り,対応キーに応じてラケットを左に移動
         またホッケートークンの移動速度を決めるパラーメタもここで決定
         """
-        self.vvx = 5
-        if self.vvy > 0:
-            self.vvy = max(self.vvy-1,0)
-        elif self.vvy < 0:
-            self.vvy = min(self.vvy+1,0)
+        self.acclx = self.accmax
 
         if self.pid == 0:
             self.posx = min(self.posx + self.velx, WINDOW_WIDTH//2)
         elif self.pid == 1:
             self.posx = min(self.posx + self.velx, WINDOW_WIDTH - self.width)
+    
+    def downaccl(self):
+        if self.acclx > 0:
+            self.acclx = max(self.acclx-1,1)
+        elif self.acclx < 0:
+            self.acclx = min(self.acclx+1,-1)
+        if self.accly > 0:
+            self.accly = max(self.accly-1,1)
+        elif self.accly < 0:
+            self.accly = min(self.accly+1,-1)
     
     def circlein(self, x, y):
         '''

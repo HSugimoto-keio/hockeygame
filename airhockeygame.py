@@ -158,6 +158,8 @@ class AirhockeyGame(Game):
         if type(self.player2) is CPUPlayer:
             self.player2.move()
         self.ball.move_ball(self, self.player1, self.player2)
+        self.player1.downaccl()
+        self.player2.downaccl()
         self.judge.check_gameover(self.player1, self.player2)
 
         if self.controller.resetmatch():

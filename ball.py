@@ -93,14 +93,14 @@ class Ball:
                 (self.nextposy() > WINDOW_HEIGHT//2 + GOAL_HEIGHT//2) ):
             self.velx *= -1
         
-        eff = 3.3
+        eff = 0.33
         if player1.circlein(self.nextposx(), self.nextposy()):
-            self.velx += eff*player1.vvx//1
-            self.vely += eff*player1.vvy//1
+            self.velx += eff*player1.acclx//1
+            self.vely += eff*player1.accly//1
         
         if player2.circlein(self.nextposx(), self.nextposy()):
-            self.velx += eff*player2.vvx//1
-            self.vely += eff*player2.vvy//1
+            self.velx += eff*player2.acclx//1
+            self.vely += eff*player2.accly//1
 
         if self.nextposx() < 0:
             player2.point += 1
