@@ -87,14 +87,14 @@ class Ball:
             self.vely = 0
 
         if self.nextposy() < 0 or self.nextposy() > WINDOW_HEIGHT:
-            self.vely = self.vely * (-1 * self.coeff)//1 
+            self.vely = self.vely * (-1 * self.coeff)//1
         
         if (self.nextposx() < GOAL_WIDTH or self.nextposx() > WINDOW_WIDTH - GOAL_WIDTH) and\
             ((self.nextposy() < WINDOW_HEIGHT//2 - GOAL_HEIGHT//2) or\
                 (self.nextposy() > WINDOW_HEIGHT//2 + GOAL_HEIGHT//2) ):
             self.velx = self.velx * (-1 * self.coeff)//1 
         
-        eff = 0.33
+        eff = 0.16
         if player1.circlein(self.posx, self.posy, self.size):
             if self.velx * player1.acclx + self.vely * player1.accly <= 0:
                 self.velx = self.vely * (-1 * self.coeff)//1 

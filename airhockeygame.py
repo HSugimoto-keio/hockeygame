@@ -10,7 +10,8 @@ from player import Player
 from cpuplayer import CPUPlayer
 from airhockeykeyboard import AirHockeyKeyBoard
 from judge import Judge
-#from airhockeyjoyconcontroller import AirHockeyJoyConController
+from airhockeyjoyconcontroller import AirHockeyJoyConController
+import pygame
 
 class AirhockeyGame(Game):
     """
@@ -31,8 +32,8 @@ class AirhockeyGame(Game):
         self.gamename = "AirHockey"
         self.presenter = "Urayama"
         super().__init__(self.gamename, self.presenter)
-        self.controller = AirHockeyKeyBoard(self.screen)
-        #self.controller = AirHockeyJoyConController()
+        #self.controller = AirHockeyKeyBoard(self.screen)
+        self.controller = AirHockeyJoyConController()
         self.judge = Judge()
         self.ball = Ball()
         # pygame.mixer.init()
@@ -42,6 +43,21 @@ class AirhockeyGame(Game):
         self.nextgame = False
         self.nextmatch = False
         self.player2selected = False
+    
+    def nextstate(self, statedict, nowstate):
+        """
+        statedictに用意されている行き先に遷移する。
+        条件が揃わないとnowstateのまま
+        getstatusを変更したためこちらを採用
+        """
+        if type(self.controller) is AirHockeyJoyConController:
+            self.controller.get_status()
+        for key, nextstate in statedict.items():
+            if key:
+                self.screen.window.after(self.screen.mtime, nextstate)
+                return
+        self.screen.window.after(self.screen.mtime, nowstate)
+        return
 
     def state_boot(self):
         """
