@@ -29,6 +29,7 @@ class Player:
         self.vely = 25
         self.velx = 25
         self.accmax = 50
+        self.accdown = 2
         self.color = color
         self.pid = pid
         self.player_init()
@@ -44,6 +45,12 @@ class Player:
             self.posx = 0 + self.width
         elif self.pid == 1:
             self.posx = WINDOW_WIDTH - self.width
+        self.accly = 0
+        self.acclx = 0
+    
+    def player_matchinit(self):
+        self.posy = WINDOW_HEIGHT // 2
+        
         self.accly = 0
         self.acclx = 0
 
@@ -124,20 +131,20 @@ class Player:
     
     def downaccl(self):
         if self.acclx > 0:
-            self.acclx = max(self.acclx-1,1)
+            self.acclx = max(self.acclx-self.accdown,0)
         elif self.acclx < 0:
-            self.acclx = min(self.acclx+1,-1)
+            self.acclx = min(self.acclx+self.accdown,0)
         if self.accly > 0:
-            self.accly = max(self.accly-1,1)
+            self.accly = max(self.accly-self.accdown,0)
         elif self.accly < 0:
-            self.accly = min(self.accly+1,-1)
+            self.accly = min(self.accly+self.accdown,0)
     
-    def circlein(self, x, y):
+    def circlein(self, x, y, pr):
         '''
         x,yの座標がプレイヤーのサークル内にあるかどうかを判定
         主にballの当たり判定に使用
         '''
-        r = self.size // 2
+        r = (self.size // 2 + pr)
         return (self.posx-x)**2 + (self.posy-y)**2 < r*r
 
     def draw(self, canvas):

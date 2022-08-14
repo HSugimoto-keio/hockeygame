@@ -10,7 +10,7 @@ from player import Player
 from cpuplayer import CPUPlayer
 from airhockeykeyboard import AirHockeyKeyBoard
 from judge import Judge
-from airhockeyjoyconcontroller import AirHockeyJoyConController
+#from airhockeyjoyconcontroller import AirHockeyJoyConController
 
 class AirhockeyGame(Game):
     """
@@ -31,8 +31,8 @@ class AirhockeyGame(Game):
         self.gamename = "AirHockey"
         self.presenter = "Urayama"
         super().__init__(self.gamename, self.presenter)
-        #self.controller = AirHockeyKeyBoard(self.screen)
-        self.controller = AirHockeyJoyConController()
+        self.controller = AirHockeyKeyBoard(self.screen)
+        #self.controller = AirHockeyJoyConController()
         self.judge = Judge()
         self.ball = Ball()
         # pygame.mixer.init()
@@ -126,6 +126,8 @@ class AirhockeyGame(Game):
         マッチの終了判定のみFalseにし,ボールの初期化
         """
         self.judge.matchreset()
+        self.player1.player_matchinit()
+        self.player2.player_matchinit()
         self.ball.ball_init()
 
     def proc_boot(self):

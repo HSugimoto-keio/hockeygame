@@ -40,6 +40,7 @@ class Ball:
         self.posy = 250
         self.velx = 0
         self.vely = 0
+        self.coeff = 0.8
 
     def left(self):
         """
@@ -86,19 +87,22 @@ class Ball:
             self.vely = 0
 
         if self.nextposy() < 0 or self.nextposy() > WINDOW_HEIGHT:
-            self.vely *= -1
+            self.vely = self.vely * (-1 * self.coeff)//1 
         
         if (self.nextposx() < GOAL_WIDTH or self.nextposx() > WINDOW_WIDTH - GOAL_WIDTH) and\
             ((self.nextposy() < WINDOW_HEIGHT//2 - GOAL_HEIGHT//2) or\
                 (self.nextposy() > WINDOW_HEIGHT//2 + GOAL_HEIGHT//2) ):
-            self.velx *= -1
+            self.velx = self.velx * (-1 * self.coeff)//1 
         
         eff = 0.33
-        if player1.circlein(self.nextposx(), self.nextposy()):
+        if player1.circlein(self.posx, self.posy, self.size):
+            if self.velx * player1.acclx + self.vely * player1.accly <= 0:
+                self.velx = self.vely * (-1 * self.coeff)//1 
+                self.vely = self.velx * (-1 * self.coeff)//1 
             self.velx += eff*player1.acclx//1
             self.vely += eff*player1.accly//1
         
-        if player2.circlein(self.nextposx(), self.nextposy()):
+        if player2.circlein(self.posx, self.posy, self.size):
             self.velx += eff*player2.acclx//1
             self.vely += eff*player2.accly//1
 
