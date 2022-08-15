@@ -111,7 +111,7 @@ class Screen:
         スタート画面
         """
         self.draw_screen()
-        self.window.title("Let's start! Press space!")
+        self.window.title("Let's start! Press X!")
         self.canvas.create_text(
             WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2,
             text=self.gamename,
@@ -124,7 +124,7 @@ class Screen:
         )
         self.canvas.create_text(
             WINDOW_WIDTH // 2, WINDOW_HEIGHT//2 + 150,
-            text="press space",
+            text="press X",
             anchor="center", fill="green", font=("roman", 25)
         )
 
@@ -135,12 +135,12 @@ class Screen:
         self.draw_screen()
         self.canvas.create_text(
             WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 - 100,
-            text="VS CPU? -> 1",
+            text="VS CPU? -> SR",
             anchor="center", fill="black", font=("roman", 25)
         )
         self.canvas.create_text(
             WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2,
-            text="VS 2P? -> 2",
+            text="VS 2P? -> SL",
             anchor="center", fill="black", font=("roman", 25)
         )
 
@@ -160,16 +160,16 @@ class Screen:
         self.canvas.create_text(
             WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2,
             text="Game Set!!",
-            anchor="center", fill="Red", font=("roman", 25)
+            anchor="center", fill="orange", font=("roman", 25)
         )
         self.canvas.create_text(
             WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 100,
-            text="New Game? -> Press space",
+            text="New Game? -> Press X",
             anchor="center", fill="green", font=("roman", 15)
         )
         self.canvas.create_text(
             WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 200,
-            text="Return to Start screen? -> Press Return",
+            text="Return to Start screen? -> Press Home",
             anchor="center", fill="green", font=("roman", 15)
         )
         if gamemanager.judge.is_player_winner(gamemanager.player1, gamemanager.player2):
@@ -185,4 +185,9 @@ class Screen:
         試合結果表示
         """
         self.draw_result(gamemanager)
+        self.canvas.create_text(
+            WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2 + 100,
+            text="Press X",
+            anchor="center", fill="green", font=("roman", 15)
+        )
         self.window.title(self.draw_display_point(gamemanager))

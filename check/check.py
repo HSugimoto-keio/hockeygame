@@ -7,8 +7,13 @@ def main() :
  
     while True:
         pygame.joystick.init()
-        joystick0 = pygame.joystick.Joystick(0)
-        joystick0.init()
+        joycnt = pygame.joystick.get_count()
+        joysticks = []
+        for i in range(joycnt):
+            joysticks.append(pygame.joystick.Joystick(i))
+            joysticks[i].init()
+        #joystick0 = pygame.joystick.Joystick(0)
+        #joystick0.init()
         # コントローラーの操作を取得
         eventlist = pygame.event.get()
  
@@ -29,13 +34,18 @@ def main() :
                 return
 
             if e.type == pygame.locals.JOYAXISMOTION:
-                x, y = joystick0.get_axis(0), joystick0.get_axis(1)
-                print('axis x:' + str(x) + ' axis y:' + str(y))
+                for i in range(joycnt):
+                    x, y = joysticks[i].get_axis(0), joysticks[i].get_axis(1)
+                    print(str(i)+'axis x:' + str(x) + ' axis y:' + str(y))
             elif e.type == pygame.locals.JOYHATMOTION:
-                x, y = joystick0.get_hat(0)
-                print ('hat x:' + str(x) + ' hat y:' + str(y))
+                for i in range(joycnt):
+                    x, y = joysticks[i].get_hat(0)
+                    print (str(i)+'hat x:' + str(x) + ' hat y:' + str(y))
             elif e.type == pygame.locals.JOYBUTTONDOWN:
-                print ('button:' + str(e.button))
+                but = e.button
+                for i in range(joycnt):
+                    if joysticks[i].get_button(but):
+                        print (str(i)+'button:' + str(e.button))
  
         time.sleep(0.1)
  
