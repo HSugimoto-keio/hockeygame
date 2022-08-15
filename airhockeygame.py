@@ -10,7 +10,7 @@ from player import Player
 from cpuplayer import CPUPlayer
 from airhockeykeyboard import AirHockeyKeyBoard
 from judge import Judge
-from airhockeyjoyconcontroller import AirHockeyJoyConController
+from airhockeyjoyconcontroller2 import AirHockeyJoyConController
 import pygame
 
 class AirhockeyGame(Game):
